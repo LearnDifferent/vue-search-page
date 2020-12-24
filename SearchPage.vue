@@ -5,7 +5,7 @@
       <v-col>
         <v-text-field
             v-model="inputMsg"
-            :append-icon="inputMsg ? 'mdi-send' : ''"
+            :append-icon="inputMsg ? magnifyIcon : ''"
             :label="placeholderMsg ? '正在搜索：'+placeholderMsg:''"
             single-line
             outlined
@@ -65,9 +65,13 @@
 
 
 <script>
+// 引入单个图标
+import { mdiMagnify } from '@mdi/js';
 export default {
   name: "SearchPage",
   data: () => ({
+    // 引入单个图标，命名为 magnifyIcon
+    magnifyIcon: mdiMagnify,
     inputMsg: '',
     placeholderMsg: '',
     currentPage: 0,
