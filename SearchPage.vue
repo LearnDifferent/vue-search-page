@@ -81,6 +81,10 @@ export default {
       var keyword = keyword;
       var currentPage = currentPage;
       this.searchRequest(keyword, currentPage);
+
+      // 让页面返回顶部
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     },
     searchRequest(keyword, currentPage) {
       if (this.keyword !== keyword) {
