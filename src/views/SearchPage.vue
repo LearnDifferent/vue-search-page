@@ -13,7 +13,8 @@
             @keyup.enter="searchRequest(inputMsg, currentPage)"
             @click:append="searchRequest(inputMsg, currentPage)"
         ></v-text-field>
-        <p v-show="totalCount !== -1">搜索到{{ totalCount }}条结果</p>
+        <p v-show="totalCount !== -1 && !errorMsg">搜索到{{ totalCount }}条结果</p>
+        <p v-show="errorMsg">{{errorMsg}}</p>
       </v-col>
     </v-row>
 
@@ -76,6 +77,7 @@ export default {
     placeholderMsg: '',
     currentPage: 0,
     msg: [],
+    errorMsg: '',
     totalPage: 1,
     totalCount: -1,
     keyword: ''
@@ -96,11 +98,15 @@ export default {
         this.currentPage = currentPage;
       }
 
+      // 重新搜索的时候，删除错误信息
+      this.errorMsg = '';
+
       this.axios.get("http://localhost:8888/search/" + keyword
           + '/' + currentPage + '/12').then(resp => {
         this.msg = resp.data.msg
         this.totalPage = resp.data.totalPage;
         this.totalCount = resp.data.totalCount;
+        this.errorMsg = resp.data.errorMsg;
         this.keyword = keyword;
       });
       this.clearMessage(keyword)
